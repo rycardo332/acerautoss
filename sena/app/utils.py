@@ -2,7 +2,6 @@
 UTILIDADES PARA EXPORTACION DE REPORTES
 """
 import os
-from weasyprint import HTML
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.drawing.image import Image as XLImage
@@ -58,6 +57,7 @@ def _align(h='left', v='center', wrap=False):
 # ══════════════════════════════════════════════════════════
 
 def exportar_pdf(titulo, columnas, datos, nombre_archivo):
+    from weasyprint import HTML
     contexto = {
         'titulo': titulo,
         'columnas': columnas,
