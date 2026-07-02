@@ -13,7 +13,7 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '.onrender.com']
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://acerautoss-2.onrender.com',
+    'https://acerautoss-3.onrender.com',
 ]
 
 INSTALLED_APPS = [
