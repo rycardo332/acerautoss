@@ -63,21 +63,31 @@ TEMPLATES = [
 WSGI_APPLICATION = 'sena.wsgi.application'
 
 
-# ========== BASE DE DATOS MySQL ==========
-DATABASES = {
-    'default': {
-        'ENGINE':   'django.db.backends.mysql',
-        'NAME':     os.environ.get('DB_NAME', 'acerautos_proyecto'),
-        'USER':     os.environ.get('DB_USER', 'root'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'Acerautos2026*'),
-        'HOST':     os.environ.get('DB_HOST', 'localhost'),
-        'PORT':     os.environ.get('DB_PORT', '3306'),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+# ========== BASE DE DATOS ==========
+if os.environ.get('GITHUB_ACTIONS') == 'true':
+    # SQLite para pruebas automatizadas en CI (GitHub Actions)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db_test.sqlite3',
+        }
     }
-}
+else:
+    # MySQL para desarrollo local y producción
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.mysql',
+            'NAME':     os.environ.get('DB_NAME', 'acerautos_proyecto'),
+            'USER':     os.environ.get('DB_USER', 'root'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'Acerautos2026*'),
+            'HOST':     os.environ.get('DB_HOST', 'localhost'),
+            'PORT':     os.environ.get('DB_PORT', '3306'),
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},

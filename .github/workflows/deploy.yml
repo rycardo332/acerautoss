@@ -8,20 +8,6 @@ jobs:
     testeo:
         runs-on: ubuntu-latest
 
-        services:
-            mysql:
-                image: mysql:8.0
-                env:
-                    MYSQL_ROOT_PASSWORD: Acerautos2026*
-                    MYSQL_DATABASE: acerautos_proyecto
-                ports:
-                    - 3306:3306
-                options: >-
-                    --health-cmd="mysqladmin ping"
-                    --health-interval=10s
-                    --health-timeout=5s
-                    --health-retries=5
-
         steps:
             - name: Obtener el codigo
               uses: actions/checkout@v4
@@ -39,12 +25,6 @@ jobs:
                 pip install pytest pytest-django
 
             - name: ejecutar pruebas
-              env:
-                DB_NAME: acerautos_proyecto
-                DB_USER: root
-                DB_PASSWORD: Acerautos2026*
-                DB_HOST: 127.0.0.1
-                DB_PORT: 3306
               run: |
                 cd sena
                 pytest app/tests.py --ds=sena.settings
