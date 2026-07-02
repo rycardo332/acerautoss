@@ -80,7 +80,7 @@ else:
             'NAME':     os.environ.get('DB_NAME', 'acerautos_proyecto'),
             'USER':     os.environ.get('DB_USER', 'root'),
             'PASSWORD': os.environ.get('DB_PASSWORD', 'Acerautos2026*'),
-            'HOST':     os.environ.get('DB_HOST', 'localhost'),
+            'HOST': os.environ.get('DB_HOST'),
             'PORT':     os.environ.get('DB_PORT', '3306'),
             'OPTIONS': {
                 'charset': 'utf8mb4',
