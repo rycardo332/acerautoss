@@ -36,5 +36,7 @@ COPY . .
 # Etapa 7: Puerto que expone el contenedor
 EXPOSE 8000
 
-# Etapa 8: Comando por defecto (desarrollo con runserver)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Etapa 8: Comando por defecto
+# Corre las migraciones automaticamente y luego levanta el servidor,
+# usando el puerto que Render asigna dinamicamente via $PORT.
+CMD python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:${PORT:-8000}
