@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.gitignore
+staticfiles/
+media/
+*.log
+.vscode/
+db.sql
+backups/*.sql
