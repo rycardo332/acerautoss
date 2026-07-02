@@ -27,7 +27,7 @@ class AdminOMecanicoMixin(UserPassesTestMixin):
 # ── 1. LISTADO — Mecánico puede ver ──────────────────────────────
 class ClienteListView(LoginRequiredMixin, AdminOMecanicoMixin, ListView):
     model = Cliente
-    template_name = 'cliente/listar.html'
+    template_name = 'Cliente/listar.html'
     context_object_name = 'clientes'
 
     def get_context_data(self, **kwargs):
@@ -39,7 +39,7 @@ class ClienteListView(LoginRequiredMixin, AdminOMecanicoMixin, ListView):
 class ClienteCreateView(LoginRequiredMixin, AdminOMecanicoMixin, CreateView):
     model = Cliente
     form_class = ClienteForm
-    template_name = 'cliente/crear.html'
+    template_name = 'Cliente/crear.html'
     success_url = reverse_lazy('app:listar_clientes')
 
     def get_context_data(self, **kwargs):
@@ -61,7 +61,7 @@ class ClienteCreateView(LoginRequiredMixin, AdminOMecanicoMixin, CreateView):
 class ClienteUpdateView(LoginRequiredMixin, AdminOMecanicoMixin, UpdateView):
     model = Cliente
     form_class = ClienteForm
-    template_name = 'cliente/crear.html'
+    template_name = 'Cliente/crear.html'
     success_url = reverse_lazy('app:listar_clientes')
 
     def get_context_data(self, **kwargs):

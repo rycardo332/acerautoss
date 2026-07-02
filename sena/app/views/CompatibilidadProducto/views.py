@@ -33,7 +33,7 @@ class AdminOMecanicoMixin(UserPassesTestMixin):
 # ── 1. LISTADO — Mecánico puede ver ──────────────────────────────
 class CompatibilidadListView(LoginRequiredMixin, AdminOMecanicoMixin, ListView):
     model = CompatibilidadProducto
-    template_name = 'compatibilidadProducto/listar.html'
+    template_name = 'CompatibilidadProducto/listar.html'
     context_object_name = 'compatibilidades'
 
     def get_context_data(self, **kwargs):
@@ -46,7 +46,7 @@ class CompatibilidadListView(LoginRequiredMixin, AdminOMecanicoMixin, ListView):
 class CompatibilidadCreateView(LoginRequiredMixin, SoloAdminMixin, CreateView):
     model = CompatibilidadProducto
     form_class = CompatibilidadProductoForm
-    template_name = 'compatibilidadProducto/crear.html'
+    template_name = 'CompatibilidadProducto/crear.html'
 
     def get_success_url(self):
         next_param = self.request.POST.get('next') or self.request.GET.get('next')
@@ -69,7 +69,7 @@ class CompatibilidadCreateView(LoginRequiredMixin, SoloAdminMixin, CreateView):
 class CompatibilidadUpdateView(LoginRequiredMixin, SoloAdminMixin, SuccessMessageMixin, UpdateView):
     model = CompatibilidadProducto
     form_class = CompatibilidadProductoForm
-    template_name = 'compatibilidadProducto/crear.html'
+    template_name = 'CompatibilidadProducto/crear.html'
     success_url = reverse_lazy('app:listar_compatibilidad')
     success_message = 'Compatibilidad actualizada exitosamente.'
 
@@ -84,7 +84,7 @@ class CompatibilidadUpdateView(LoginRequiredMixin, SoloAdminMixin, SuccessMessag
 class CompatibilidadDeleteView(LoginRequiredMixin, SoloAdminMixin, View):
     def get(self, request, pk):
         comp = get_object_or_404(CompatibilidadProducto, pk=pk)
-        return render(request, 'compatibilidadProducto/eliminar.html', {
+        return render(request, 'CompatibilidadProducto/eliminar.html', {
             'object':     comp,
             'titulo':     'Eliminar Compatibilidad',
             'listar_url': reverse_lazy('app:listar_compatibilidad'),

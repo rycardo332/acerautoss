@@ -42,7 +42,7 @@ class AdminOMecanicoMixin(UserPassesTestMixin):
 # ── LISTAR — Mecánico solo puede ver ─────────────────────────────
 class ProductoListView(LoginRequiredMixin, AdminOMecanicoMixin, ListView):
     model = Producto
-    template_name = 'producto/listar.html'
+    template_name = 'Producto/listar.html'
     context_object_name = 'productos'
 
     def get_queryset(self):
@@ -70,7 +70,7 @@ class ProductoListView(LoginRequiredMixin, AdminOMecanicoMixin, ListView):
 class ProductoCreateView(LoginRequiredMixin, SoloAdminMixin, CreateView):
     model = Producto
     form_class = ProductoForm
-    template_name = 'producto/crear.html'
+    template_name = 'Producto/crear.html'
 
     def get_success_url(self):
         next_url = self.request.GET.get('next') or self.request.POST.get('next')
@@ -94,7 +94,7 @@ class ProductoCreateView(LoginRequiredMixin, SoloAdminMixin, CreateView):
 class ProductoUpdateView(LoginRequiredMixin, SoloAdminMixin, UpdateView):
     model = Producto
     form_class = ProductoForm
-    template_name = 'producto/crear.html'
+    template_name = 'Producto/crear.html'
     success_url = reverse_lazy('app:listar_producto')
 
     def form_valid(self, form):
@@ -112,7 +112,7 @@ class ProductoUpdateView(LoginRequiredMixin, SoloAdminMixin, UpdateView):
 # ── ELIMINAR — Solo Admin ─────────────────────────────────────────
 class ProductoDeleteView(LoginRequiredMixin, SoloAdminMixin, DeleteView):
     model = Producto
-    template_name = 'producto/eliminar.html'
+    template_name = 'Producto/eliminar.html'
     success_url = reverse_lazy('app:listar_producto')
 
     def form_valid(self, form):

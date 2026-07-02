@@ -56,27 +56,27 @@ class DetalleOrdenListView(LoginRequiredMixin, AccesoLecturaTallerMixin, ListVie
         total_general   = sum(d.cantidad * d.producto.precio for d in qs)
 
         # ── Consumo por mes — últimos 6 meses (SQL directo para evitar problema TZ) ──
+        # ── Consumo por mes — últimos 6 meses (ORM, compatible con cualquier BD) ──
+        from django.db.models.functions import TruncMonth
+
         hace_6_meses = timezone.now() - timedelta(days=180)
-        with connection.cursor() as cursor:
-            cursor.execute("""
-                SELECT DATE_FORMAT(o.fecha, '%%Y-%%m') as mes, SUM(d.cantidad) as total
-                FROM detalle_orden_producto d
-                JOIN orden_servicio o ON d.orden_id = o.id
-                WHERE o.fecha >= %s
-                GROUP BY mes
-                ORDER BY mes
-            """, [hace_6_meses])
-            rows = cursor.fetchall()
+        consumo_qs = (
+            DetalleOrdenProducto.objects
+            .filter(orden__fecha__gte=hace_6_meses)
+            .annotate(mes=TruncMonth('orden__fecha'))
+            .values('mes')
+            .annotate(total=Sum('cantidad'))
+            .order_by('mes')
+        )
 
         MESES_ES = ['', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
                     'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
         por_mes = []
-        for mes_str, total in rows:
-            if mes_str:
-                anio, mes_num = mes_str.split('-')
+        for fila in consumo_qs:
+            if fila['mes']:
                 por_mes.append({
-                    'mes':   f"{MESES_ES[int(mes_num)]} {anio}",
-                    'total': total,
+                    'mes':   f"{MESES_ES[fila['mes'].month]} {fila['mes'].year}",
+                    'total': fila['total'],
                 })
 
         # ── Top 5 productos más usados ──
