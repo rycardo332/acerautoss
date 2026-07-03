@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ========== CARGA DE VARIABLES DE ENTORNO (.env) ==========
 load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-(1x7w0^_8zvx$7z$@4z!j+31!r0@=13vs0@qby2-ac8xuj#c=u')
@@ -67,8 +66,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'sena.wsgi.application'
 
 
-# ========== BASE DE DATOS ==========
-# SQLite para todo: desarrollo local, CI y Render (datos de prueba, no persistentes)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -94,12 +92,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ========== REDIRECCION LOGIN/LOGOUT ==========
+
 LOGIN_REDIRECT_URL = '/principal/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
-# ========== MESSAGES + SWEETALERT2 ==========
+
 MESSAGE_TAGS = {
     messages.DEBUG:   'info',
     messages.INFO:    'info',
@@ -111,7 +109,7 @@ MESSAGE_TAGS = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# ========== CORREO GMAIL ==========
+
 EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST          = 'smtp.gmail.com'
 EMAIL_PORT          = 587

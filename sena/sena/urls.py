@@ -3,8 +3,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django.views.generic import RedirectView
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/login/', permanent=False)),
+
     path('admin/', admin.site.urls),
     path('principal/', include('app.urls', namespace='app')),
     path('', include('login.urls', namespace='login')),

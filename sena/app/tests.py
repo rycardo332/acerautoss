@@ -12,3 +12,4 @@ class PruebaBasica(TestCase):
         Marca.objects.create(nombre='Toyota', categoria='AUTO')
         consulta = Marca.objects.filter(nombre='Toyota')
         self.assertTrue(consulta.exists())
+        
